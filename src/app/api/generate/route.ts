@@ -65,6 +65,7 @@ export async function POST(req: Request): Promise<Response> {
       },
       {
         role: "user",
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         content: prompt,
       },
     ],
