@@ -54,6 +54,9 @@ export default async function Home() {
 
         </div>
 
+        {/* CRUD */}
+        {session && <CrudShowcase />}
+
         {/* NOVEL */}
         {session && <Editor />}
 

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Editor as NovelEditor } from "novel";
 
 export function Editor() {
+
   const [saveStatus, setSaveStatus] = useState("Saved");
   const [key, setKey] = useState(0);
 
