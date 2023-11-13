@@ -5,7 +5,7 @@ import { Ratelimit } from "@upstash/ratelimit";
 
 // Create an OpenAI API client (that's edge friendly!)
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY || "",
+  apiKey: process.env.OPENAI_API_KEY ?? "",
 });
 
 // IMPORTANT! Set the runtime to edge: https://vercel.com/docs/functions/edge-functions/edge-runtime
@@ -48,7 +48,8 @@ export async function POST(req: Request): Promise<Response> {
     }
   }
 
-  let { prompt } = await req.json();
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const { prompt } = await req.json();
 
   const response = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
@@ -76,6 +77,7 @@ export async function POST(req: Request): Promise<Response> {
   });
 
   // Convert the response into a friendly text-stream
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const stream = OpenAIStream(response);
 
   // Respond with the stream
