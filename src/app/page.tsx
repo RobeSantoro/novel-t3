@@ -4,6 +4,8 @@ import { CreatePost } from "~/app/_components/create-post";
 import { getServerAuthSession } from "~/server/auth";
 import { api } from "~/trpc/server";
 
+import { Editor } from "~/app/_components/editor";
+
 export default async function Home() {
   const hello = await api.post.hello.query({ text: "from Blending Pixels" });
   const session = await getServerAuthSession();
@@ -37,22 +39,23 @@ export default async function Home() {
           </>}
 
           {/* NAVBAR SIGN OUT */}
-          {session && <div className="fixed top-0 left-0 right-0 h-16 flex items-center justify-between bg-[#15162c] px-2 text-white">
-            <p className="text-md">
-              {session && <span> {session.user?.name}</span>}
-            </p>
+          {session && <div className="fixed top-0 left-0 right-0 h-16 flex items-center justify-between px-2 text-white">
+            {/* <p className="text-md">{session && <span> {session.user?.name}</span>}</p> */}
             <Link
               href={session ? "/api/auth/signout" : "/api/auth/signin"}
               className="rounded-full bg-white/10 px-4 py-2 font-semibold no-underline transition hover:bg-white/20 text-sm"
             >
-              SIGN OUT
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                  d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+              </svg>
             </Link>
           </div>}
 
         </div>
 
         {/* NOVEL */}
-        {/* <CrudShowcase /> */}
+        {session && <Editor />}
 
       </div>
     </main>
